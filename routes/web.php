@@ -14,5 +14,22 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Index');
+    return Inertia::render('About', [
+        'tasks' => [
+            ['name' => 'Ammon Mkama',
+            'age' => '25',
+            'phone' => '07890987876',
+            'id' => '07890987876'],
+             ['name' => 'Ammon Mkama',
+            'age' => '25',
+            'phone' => '07890987876',
+            'id' => '07890987876'],
+        ]
+    ]);
+});
+Route::get('/create', function(){
+    return inertia('Create');
+});
+Route::get('/modal', function () {
+    return Inertia::render('Modal');
 });

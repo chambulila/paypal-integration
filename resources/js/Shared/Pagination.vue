@@ -1,8 +1,8 @@
 <template>
   <nav class="py-4 px-4" aria-label="Page navigation example">
-    <ul class="pagination pagination-dark">
-    <li v-for="(link, key) in links" :key="key" class="page-item"  :class="{'active' : link.active }">
-      <Link class="page-link" :key="`link-${key}`"  :href="link.url" v-html="link.label" />
+    <ul class="pagination pagination-dark flex">
+    <li v-for="(link, key) in links" :key="key" class="page-item text-blue-700 gap-4"  :class="{'active' : link.active }">
+      <Link class="page-link text-blue-700 gap-4" :key="`link-${key}`"  :href="link.url" v-html="link.label" />
     </li>
   </ul>
 </nav>

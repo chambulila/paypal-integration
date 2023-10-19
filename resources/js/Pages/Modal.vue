@@ -1,6 +1,6 @@
 <template>
     <br>
-    <a class="flex items-center justify-between p-4 mb-4 text-sm font-semibold text-purple-100 bg-genedark rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
+    <a class="flex items-center justify-between p-4 mb-4 text-sm font-semibold text-purple-100 bg-gray-800 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple"
         href="/dashboard">
         <div class="flex items-center">
             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -15,7 +15,7 @@
     <div class="px-2 py-2 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <!-- With avatar -->
         <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-            Table with avatars  <button @click="open = true"  class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-genedark border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-genedark hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            Table with avatars  <button @click="open = true"  class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-gray-800 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-gray-800 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                             Open Modal
                         </button> <br><br><br><br><br><br><br><br><br><br>
         </h4>
@@ -52,7 +52,7 @@
                         <button @click="open = false"  class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
                             Cancel
                         </button>
-                        <button @click="open = false"  class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-genedark border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-genedark hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                        <button @click="open = false"  class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-gray-800 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-gray-800 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                             Accept
                         </button>
                         <br>

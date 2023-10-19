@@ -15,15 +15,14 @@ use App\Http\Controllers\LeaveRequestController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('About');
-});
+
 Route::get('/create', function(){
     return inertia('Create');
 });
 Route::get('/modal', function () {
     return Inertia::render('Modal');
 });
+Route::get('/', [LeaveRequestController::class, 'dashboard'])->name('dashboard');
 
 //LEAVE REQUEST
 Route::get('leaverequests/create', [LeaveRequestController::class, 'create'])->name('leaverequests.create');
@@ -35,3 +34,4 @@ Route::get('/leaverequests/updateleavestatus/{id}', [LeaveRequestController::cla
 Route::get('/leaverequests/approveleavestatus/{id}', [LeaveRequestController::class, 'approve_leave_request_status']);
 Route::get('/leaverequests/rejectleavestatus/{id}', [LeaveRequestController::class, 'reject_leave_request_status']);
 Route::get('/leaverequests-print', [LeaveRequestController::class, 'index']);
+require __DIR__.'/auth.php';

@@ -25,15 +25,15 @@ class LeaveRequestController extends Controller
 {
     function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     } 
 
     public function dashboard()
     {
         // if (Auth::User()->account_type_id == 1) {
             return Inertia::render('LeaveRequest/Dashboard', [
-                'leave_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->count(),
-                'approved_requests' => LeaveRequest::where('school_id', Auth::User()->school_id)->latest()->where('leavestatus_id', 1)->take(5)->get()
+                'leave_requests_count' => LeaveRequest::count(),
+                'approved_requests' => LeaveRequest::latest()->where('leave_status_id', 1)->take(5)->get()
                 ->map(fn ($item) => [
                     'name' => $item->user->name,
                     'username' => $item->user->username,
@@ -44,25 +44,25 @@ class LeaveRequestController extends Controller
                     'reference' => $item->reference,
     
                 ] ),
-                'pending_requests' => LeaveRequest::where('school_id', Auth::User()->school_id)->latest()->where('leavestatus_id', 0)->take(5)->get()
+                'pending_requests' => LeaveRequest::latest()->where('leave_status_id', 0)->take(5)->get()
                 ->map(fn ($leave_request) => [
                     'start_date' => date("M d, Y", strtotime($leave_request->start_date)),
                     'end_date' => date("M d, Y", strtotime($leave_request->end_date)),
                     'number_of_days' => Carbon::parse($leave_request->end_date)->diffInDays(Carbon::parse($leave_request->start_date)),
                     'reference' => $leave_request->reference,
                     'created_at' => date("M d-Y", strtotime($leave_request->created_at)),
-                    'status' => $leave_request->leavestatus_id === 0 ? 'Pending' : ($leave_request->leavestatus_id === 1 ? 'Approved' : 'Rejected'),
+                    'status' => $leave_request->leave_status_id === 0 ? 'Pending' : ($leave_request->leave_status_id === 1 ? 'Approved' : 'Rejected'),
                     'type' => $leave_request->leavetype->name,
                     'user' => $leave_request->user->name
                     ] ),
-                'pending_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('leavestatus_id', 0)->get()->count(),
-                'approved_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('leavestatus_id', 1)->get()->count(),
-                'rejected_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('leavestatus_id', 2)->get()->count(),
+                'pending_requests_count' => LeaveRequest::where('leave_status_id', 0)->get()->count(),
+                'approved_requests_count' => LeaveRequest::where('leave_status_id', 1)->get()->count(),
+                'rejected_requests_count' => LeaveRequest::where('leave_status_id', 2)->get()->count(),
             ]);
         // }else{
         //     return Inertia::render('LeaveRequest/Dashboard', [
         //         'leave_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->count(),
-        //         'approved_requests' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->latest()->where('leavestatus_id', 1)->take(5)->get()
+        //         'approved_requests' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->latest()->where('leave_status_id', 1)->take(5)->get()
         //         ->map(fn ($item) => [
         //             'name' => $item->user->name,
         //             'username' => $item->user->username,
@@ -73,7 +73,7 @@ class LeaveRequestController extends Controller
         //             'reference' => $item->reference,
     
         //         ] ),
-        //         'pending_requests' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->latest()->where('leavestatus_id', 0)->take(5)->get()
+        //         'pending_requests' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->latest()->where('leave_status_id', 0)->take(5)->get()
         //         ->map(fn ($item) => [
         //                 'name' => $item->user->name,
         //                 'username' => $item->user->username,
@@ -83,9 +83,9 @@ class LeaveRequestController extends Controller
         //                 'end_date' => $item->end_date,
         //                 'reference' => $item->reference,
         //             ] ),
-        //         'pending_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->where('leavestatus_id', 0)->get()->count(),
-        //         'approved_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->where('leavestatus_id', 1)->get()->count(),
-        //         'rejected_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->where('leavestatus_id', 2)->get()->count(),
+        //         'pending_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->where('leave_status_id', 0)->get()->count(),
+        //         'approved_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->where('leave_status_id', 1)->get()->count(),
+        //         'rejected_requests_count' => LeaveRequest::where('school_id', Auth::User()->school_id)->where('user_id', Auth::User()->id)->where('leave_status_id', 2)->get()->count(),
         //     ]);
         // }
  
@@ -97,8 +97,8 @@ class LeaveRequestController extends Controller
         $month = empty(!request('month')) ? Carbon::parse(request('month')) : null;
         $ltype = !empty(request('ltype')) ? [(int)request('ltype')] : '';
         $leave_requests = request('read') == 'pending' ? 
-        LeaveRequest::where('leavestatus_id', 0) : (request('read') == 'approved' ? LeaveRequest::where('leavestatus_id', 1) : 
-                (request('read') == 'rejected' ? LeaveRequest::where('leavestatus_id', 2) : LeaveRequest::latest()));
+        LeaveRequest::where('leave_status_id', 0) : (request('read') == 'approved' ? LeaveRequest::where('leave_status_id', 1) : 
+                (request('read') == 'rejected' ? LeaveRequest::where('leave_status_id', 2) : LeaveRequest::latest()));
         if ($month !== null && !empty($ltype) ) {
             $leave_requests->whereYear('created_at', $month)->whereMonth('created_at', $month)->whereIn('leavetype_id', $ltype);
         }elseif ($month !== null) {
@@ -142,7 +142,7 @@ class LeaveRequestController extends Controller
     public function approve_leave_request_status($id)
     {
         if ($id != '') {
-            LeaveRequest::where('school_id', Auth::User()->school_id)->where('reference', $id)->first()->update(['leavestatus_id' => 1]);
+            LeaveRequest::where('school_id', Auth::User()->school_id)->where('reference', $id)->first()->update(['leave_status_id' => 1]);
             return redirect()->route('leaverequests.show', $id)->with('message', 'Request has been approved successfully');
         } else {
             return redirect()->back();
@@ -152,7 +152,7 @@ class LeaveRequestController extends Controller
     public function reject_leave_request_status($id)
     {
         if ($id != '') {
-            LeaveRequest::where('school_id', Auth::User()->school_id)->where('reference', $id)->first()->update(['leavestatus_id' => 2]);
+            LeaveRequest::where('school_id', Auth::User()->school_id)->where('reference', $id)->first()->update(['leave_status_id' => 2]);
             return redirect()->route('leaverequests.show', $id)->with('message', 'Request has been rejected successfully');
         } else {
             return redirect()->back();
@@ -231,10 +231,10 @@ class LeaveRequestController extends Controller
             'number_of_days' => Carbon::parse($leave_request->end_date)->diffInDays(Carbon::parse($leave_request->start_date)),
             'reference' => $leave_request->reference,
             'created_at' => date("M d-Y", strtotime($leave_request->created_at)),
-            'leavestatus_id' => $leave_request->leave_status_id,
+            'leave_status_id' => $leave_request->leave_status_id,
             'note' => $leave_request->note,
             'attachment' => $leave_request->attachment,
-            'status' => $leave_request->leavestatus_id === 0 ? 'Pending' : ($leave_request->leavestatus_id === 1 ? 'Approved' : 'Rejected'),
+            'status' => $leave_request->leave_status_id === 0 ? 'Pending' : ($leave_request->leave_status_id === 1 ? 'Approved' : 'Rejected'),
             'type' => $leave_request->leavetype->name,
             // 'inNeed' => $leave_request->student->name,
             'user' => $leave_request->user->name,

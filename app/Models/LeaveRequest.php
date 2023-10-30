@@ -17,7 +17,7 @@ class LeaveRequest extends Model
     }
     public function leaveType()
     {
-        return $this->belongsTo(LeaveType::class);
+        return $this->belongsTo(LeaveType::class, 'leave_type_id', 'id')->withDefault(['name' => 'Not Defined']);
     }
     public function leavestatus()
     {

@@ -4,7 +4,7 @@
     href="#">
     <div class="flex items-center">
       <icon name="stack" />
-      <span class="pl-4">List of Leave Requests</span>
+      <span class="pl-4">List Of Departments</span>
     </div>
     <a :href="`${back_url}`" title="Go Back">
       Go Back &RightArrow;
@@ -24,7 +24,7 @@
           </select>
           <a v-if="ltype.length != 0"
             class="group relative inline-flex items-center overflow-hidden rounded border border-current px-8 py-2 text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-            :href="`/leaverequests-print?read=print&&ltype=${ltype}&&date=${month}`" target="_blank">
+            :href="`/departments-print?read=print&&ltype=${ltype}&&date=${month}`" target="_blank">
             <span class="absolute -start-full transition-all group-hover:start-4">
               <icon name="backarrow" />
             </span>
@@ -39,100 +39,48 @@
       </div>
     </form>
   </div> -->
-  <div class="w-full flex-auto">
-     <span>
-      <input v-model="search" type="text"
-        class="w-1/2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Search here.." @keyup="getSearch" />
-     </span>
-<span>
-  <div class=' mt-6 text-sm flex justify-end'>
-        <LinkWithIcon :link-route="`/leaverequests/create`" title="Add Request">
-          <template #icon>
-            +
-          </template>
-        </LinkWithIcon>
-      </div>
-</span>
-  </div>
+  <div class='flex-1 mt-6 text-sm flex justify-end'>
+            <LinkWithIcon :link-route="`/departments/create`" title="Add Department">
+              <template #icon>
+                +
+              </template>
+            </LinkWithIcon>
+          </div>
   <div class="w-full mb-8 mt-3 overflow-hidden rounded-lg shadow-xs">
     <div class="w-full overflow-x-auto">
-      <table v-if="leave_requests.data.length" class="w-full whitespace-no-wrap mt-2">
+      <table v-if="departments.data.length" class="w-full whitespace-no-wrap mt-2">
         <thead>
           <tr
             class="text-xs tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
             <th class="px-2 py-2">#</th>
-            <th class="px-2 py-2">Name</th>
-            <th class="px-2 py-2">Requested</th>
-            <th class="px-2 py-2">Leave Type</th>
-            <th class="px-2 py-2">Start Date</th>
-            <th class="px-2 py-2">End Date</th>
-            <th class="px-2 py-2"> Days</th>
-            <th class="px-2 py-2">
-              <center>Position</center>
-            </th>
-            <th class="px-2 py-2">
-              <center>Status</center>
-            </th>
-            <th>Action</th>
+            <th class="px-2 py-2">Department Name</th>
+            <th class="px-2 py-2">Department Code</th>
+            <th class="px-2 py-2">Employees</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-          <tr v-for="leave_request in leave_requests.data" :key="leave_request.id"
+          <tr v-for="leave_request in departments.data" :key="leave_request.id"
             class="text-gray-700 dark:text-gray-400">
             <td class="px-2 py-2 text-sm">
-              {{ leave_request.i }}
+              {{ leave_request.sn }}
             </td>
             <td class="px-2 py-2 text-sm">
-              {{ leave_request.user }}
+              {{ leave_request.name }}
             </td>
             <td class="px-2 py-2 text-xs">
-              {{ leave_request.created_at }}
+              {{ leave_request.code }}
             </td>
             <td class="px-2 py-2 text-sm">
-              {{ leave_request.type }}
+              456
             </td>
-            <td class="px-2 py-2 text-sm">
-              {{ leave_request.start_date }}
-            </td>
-            <td class="px-2 py-2 text-sm">
-              {{ leave_request.end_date }}
-            </td>
-            <td class="px-2 py-2 text-sm text-center">
-              {{ leave_request.number_of_days }}
-            </td>
-            <td class="px-2 py-2 text-sm text-center">
-              <center> {{ leave_request.position }}</center>
-            </td>
-            <td class="px-2 py-2 text-sm">
-              <center>
-                <span v-if="leave_request.status === 'Pending'"
-                  class=" px-2 py-1 text-center text-dark-700 bg-green-100 rounded-full dark:text-white dark:bg-orange-600">
-                  {{ leave_request.status }}
-                </span>
-                <span v-else-if="leave_request.status === 'Approved'"
-                  class=" px-2 py-1 text-center text-green-700 bg-green-100 rounded-full dark:text-white dark:bg-orange-600">
-                  {{ leave_request.status }}
-                </span>
-                <span v-else
-                  class=" px-2 py-1 text-center text-red-700 bg-green-100 rounded-full dark:text-white dark:bg-orange-600">
-                  {{ leave_request.status }}
-                </span>
-              </center>
-            </td>
-            <Link :href="`/leaverequests/show/${leave_request.reference}`">
-            <icon name="list" />
-            </Link>
           </tr>
         </tbody>
       </table>
-      <p v-if="leave_requests.data.length === 0">No leave request found</p>
+      <p v-if="departments.data.length === 0">No leave request found</p>
 
     </div>
-    <FlashMessages />
-    <pagination class="mt-4" :links="leave_requests.links" />
-    <!-- <pagination align="center" :data="leave_requests" @pagination-change-page="list"></pagination> -->
-
+  <FlashMessages />
+  <pagination class="mt-4" :links="departments.links" />
   </div>
 </template>
 <script>
@@ -156,7 +104,7 @@ export default {
     Icon,
   },
   props: {
-    leave_requests: {
+    departments: {
       type: Object,
       required: true,
     },
@@ -169,16 +117,11 @@ export default {
       required: false,
       default: '',
     },
-    coments: Object,
-    leavetypes: Object,
     ltype: Number,
     month: Object,
     back_url: String,
-    search_data: String,
   },
-  mounted() {
-    this.list()
-  },
+ 
   data() {
     return {
       openModal: false,
@@ -195,24 +138,17 @@ export default {
     form: {
       deep: true,
       handler: throttle(function () {
-        this.$inertia.get('/leaverequests/index', pickBy(this.form), { preserveState: true })
+        this.$inertia.get('/departments/index', pickBy(this.form), { preserveState: true })
       }, 150),
     },
   },
   methods: {
-  getSearch(){
-    this.$inertia.get('/leaverequests/index', {
-        search: this.search,
-    }).then(function(response){
-      this.search = this.search_data
-    }).bind(this);
-  },
     reset() {
       this.form = mapValues(this.form, () => null)
     },
     getByType: function () {
       this.show = true;
-      this.$inertia.get('/leaverequests/index', {
+      this.$inertia.get('/departments/index', {
         month: this.stmonth,
         read: this.readStatus,
         ltype: this.ltype,
@@ -223,7 +159,7 @@ export default {
     },
     getByMonth: function () {
       this.show = true;
-      this.$inertia.get('/leaverequests/index', {
+      this.$inertia.get('/departments/index', {
         month: this.stmonth,
         read: this.readStatus,
         ltype: this.ltype,
@@ -234,33 +170,32 @@ export default {
 }
 </script>
 <style scoped>
-.flash-message {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  animation: fadeIn 1s, fadeOut 1s 2s;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
+  .flash-message {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      animation: fadeIn 1s, fadeOut 1s 2s;
   }
 
-  100% {
-    opacity: 1;
+  @keyframes fadeIn {
+      0% {
+          opacity: 0;
+      }
+      100% {
+          opacity: 1;
+      }
   }
-}
 
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
+  @keyframes fadeOut {
+      0% {
+          opacity: 1;
+      }
+      100% {
+          opacity: 0;
+      }
   }
-
-  100% {
-    opacity: 0;
-  }
-}</style>
+</style>

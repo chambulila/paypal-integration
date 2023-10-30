@@ -11,8 +11,23 @@
         <div class="px-2 mb-1 bg-white rounded-lg shadow-md dark:bg-gray-800">
             <div class="grid gap-1 mb-2 md:grid-cols-2">
                 <div>
+                    <label for="start_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start
+                        Date</label>
+                    <input v-model="form.start_date" :error="form.errors.start_date" type="date" :min="start_date"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="John" required />
+                </div>
+                <div>
+                    <label for="end_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End
+                        Date</label>
+                    <input v-model="form.end_date" :error="form.errors.end_date" type="date" :min="start_date"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Doe" required />
+                </div>
+
+                <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Leave Reason</label>
-                    <select v-model="form.leave_reason" :error="form.errors.leave_reason" 
+                    <select v-model="form.leave_reason" :error="form.errors.leave_reason"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">---select---</option>
                         <option v-for="reason in reasons" :value="reason.id">
@@ -31,25 +46,6 @@
                         </option>
                     </select>
                 </div>
-                <div>
-                    <label for="start_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start
-                        Date</label>
-                    <input v-if=" form.leave_reason == '4'" v-model="form.start_date" :error="form.errors.start_date" type="date" :min="_date"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="John" required />
-                        <input v-else v-model="form.start_date" :error="form.errors.start_date" type="date" :min="todate"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="John" required />
-                </div>
-                <div>
-                    <label for="end_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End
-                        Date</label>
-                    <input v-model="form.end_date" :error="form.errors.end_date" type="date" :min="start_date"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Doe" required />
-                </div>
-
-
             </div>
 
             <label for="File">Attachment</label>
@@ -97,8 +93,8 @@ export default {
             type: Object,
             required: true,
         },
-        _date: {
-            type: Date,
+        start_date: {
+            type: String,
             required: true,
         },
         students: {
@@ -109,7 +105,6 @@ export default {
             type: Object,
             required: true,
         },
-        todate: Date,
     },
     setup() {
         const form = useForm({
@@ -126,21 +121,14 @@ export default {
     data() {
         return {
             staticModal: false,
-            mindate: '',
         }
     },
     methods: {
-        getMin() {
-            if (this.form.leave_reason = 'Academic') {
-                this.mindate = this._date;
-            } else {
-                this.mindate = this.todate;
-            }
-        },
         showmodal() {
             this.staticModal = true;
         },
         submit() {
+            alert(4);
             if (this.$refs.photo) {
                 this.form.image = this.$refs.photo.files[0];
             }

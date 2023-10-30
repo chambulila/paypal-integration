@@ -25,7 +25,10 @@ class CreateLeaverequestsTable extends Migration
             $table->text('note')->nullable();
             $table->string('attachment', 200)->nullable();
             $table->string('reference', 100)->nullable();
-            // $table->foreignId('school_id')->default(1)->constrained();
+            $table->text('accept_reject_reason_one')->nullable();
+            $table->text('accept_reject_reason_two')->nullable();
+            $table->text('accept_reject_reason_three')->nullable();
+            $table->text('accept_reject_reason_four')->nullable();
             $table->timestamp('created_at')->nullable()->useCurrent();
             $table->timeTz('updated_at')->nullable();
         });

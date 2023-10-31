@@ -130,9 +130,9 @@
 
     </div>
     <FlashMessages />
-    <pagination class="mt-4" :links="leave_requests.links" />
-    <!-- <pagination align="center" :data="leave_requests" @pagination-change-page="list"></pagination> -->
-
+    <div v-if="leave_count > 10">
+      <pagination class="mt-4" :links="leave_requests.links" />
+    </div>
   </div>
 </template>
 <script>
@@ -175,6 +175,7 @@ export default {
     month: Object,
     back_url: String,
     search_data: String,
+    leave_count: Number,
   },
   mounted() {
     this.list()

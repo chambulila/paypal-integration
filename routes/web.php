@@ -46,6 +46,8 @@ Route::get('departments/index', [DepartmentController::class, 'index']);
 Route::get('/departments/show/{id}', [DepartmentController::class, 'show']);
 
 Route::get('users/create', [UserController::class, 'create'])->name('users.create');
+Route::get('users/import/add', [UserController::class, 'importCreate']);
+Route::post('users/import/store', [UserController::class, 'importStore']);
 Route::post('users/store', [UserController::class, 'store'])->name('users.store');
 Route::get('users/dashboard', [UserController::class, 'dashboard'])->name('users.dashboard');
 Route::get('users/index', [UserController::class, 'index']);

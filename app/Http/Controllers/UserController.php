@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Request;
 use App\Models\User;
 class UserController extends Controller
@@ -14,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         return inertia('User/Index', [
-            'users' => User::paginate(10)->withQueryString()->through(fn ($data, $i = 0) => [
+            'users' => User::paginate(8)->withQueryString()->through(fn ($data, $i = 0) => [
                 'name' => $data->name,
                 'department' => $data->department_id ? $data->department->code : '',
                 'role' => $data->role->name,
@@ -25,6 +26,7 @@ class UserController extends Controller
                 'i' => $i+=1,
             ]),
             'filters' => Request::all('search', 'trashed'),
+            'user_count' => User::count(),
         ]);
     }
 
@@ -33,11 +35,25 @@ class UserController extends Controller
     {
         return view('auth.register');
     }
-
-
-    public function store(Request $request)
+    public function importCreate()
     {
-        
+        return inertia('User/ImportUsers');
+    }
+
+    public function importStore()
+    {
+        if (request()->hasFile('users')) {
+            $file = request()->file('users');
+            // Check if the uploaded file is an Excel file
+            if ($file->getClientOriginalExtension() === 'xlsx' || $file->getClientOriginalExtension() === 'xls') {
+                Excel::import(new UsersImport, $file);
+                return redirect()->back()->with('success', 'Users imported successfully!');
+            } else {
+                return redirect()->back()->with('error', 'Please upload an Excel file (xlsx or xls).');
+            }
+        } else {
+            return redirect()->back()->with('error', 'No file uploaded.');
+        }
     }
 
 

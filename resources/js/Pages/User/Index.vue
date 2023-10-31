@@ -11,7 +11,11 @@
     </a>
   </div>
 
+
+
   <div class='flex-1 mt-6 text-sm flex justify-end'>
+    <SecondaryLink :link-route="`/users/import/add`" title="Import Excel">
+    </SecondaryLink>
     <LinkWithIcon :link-route="`/users/create`" title="Add User">
       <template #icon>
         +
@@ -37,7 +41,7 @@
         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
           <tr v-for="leave_request in users.data" :key="leave_request.id" class="text-gray-700 dark:text-gray-400">
             <td class="px-2 py-2 text-sm">
-              1
+              {{ leave_request.i }}
             </td>
             <td class="px-2 py-2 text-sm">
               {{ leave_request.name }}
@@ -67,7 +71,9 @@
 
     </div>
     <FlashMessages />
+    <div v-if="user_count > 10">
     <pagination class="mt-4" :links="users.links" />
+    </div>
     <!-- <pagination align="center" :data="leave_requests" @pagination-change-page="list"></pagination> -->
 
   </div>
@@ -111,12 +117,14 @@ export default {
     ltype: Number,
     month: Object,
     back_url: String,
+    user_count: Number,
   },
   mounted() {
     this.list()
   },
   data() {
     return {
+    number: 0,
       openModal: false,
       show: false,
       ltype: '',

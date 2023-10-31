@@ -456,6 +456,7 @@ function determineStatus($leave_request, $userRole)
             'readStatus' => request('read'),
             'month' => empty(!request('month')) ? Carbon::parse(request('month')) : null,
             'ltype' => !empty(request('ltype')) ? [(int)request('ltype')] : 0,
+            'leave_count' => LeaveRequest::count(),
         ]);
     }
 

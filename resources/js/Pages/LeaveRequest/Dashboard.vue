@@ -1,6 +1,6 @@
 <template>
   <!-- Responsive cards -->
-  <div class="flex my-3 justify-between">
+  <div class="flex my-3 justify-between bg-sky-100">
     <h4 class="text-lg border-b font-semibold text-gray-600 dark:text-gray-300">
       Hi, Welcome {{ user }}
     </h4>

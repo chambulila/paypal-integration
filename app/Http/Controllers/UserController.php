@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Request;
+use Auth;
 use App\Models\User;
 class UserController extends Controller
 {
@@ -14,8 +15,9 @@ class UserController extends Controller
 
     public function index()
     {
+        $users = in_array(Auth::User()->role_id, [1, 2, 3]) ? User::whereNotNull('created_at') : User::where('department_id', Auth::User()->department_id);
         return inertia('User/Index', [
-            'users' => User::paginate(8)->withQueryString()->through(fn ($data, $i = 0) => [
+            'users' => $users->paginate(8)->withQueryString()->through(fn ($data, $i = 0) => [
                 'name' => $data->name,
                 'department' => $data->department_id ? $data->department->code : '',
                 'role' => $data->role->name,

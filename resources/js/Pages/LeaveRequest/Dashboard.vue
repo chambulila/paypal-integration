@@ -1,7 +1,7 @@
 <template>
   <!-- Responsive cards -->
-  <div class="flex my-3 justify-between bg-sky-100">
-    <h4 class="text-lg border-b font-semibold text-gray-600 dark:text-gray-300">
+  <div class="flex my-3 justify-between bg-sky-100 dark:bg-slate-600">
+    <h4 class="text-lg border-b font-semibold text-gray-600 dark:text-gray-300 dark:bg-slate-600">
       Hi, Welcome {{ user }}
     </h4>
     <LinkWithIcon :link-route="`/leaverequests/create`" title="Add Leave">
@@ -163,15 +163,15 @@
             <td class=" text-center">
               <center>
                 <span v-if="leave_request.status === 'Pending'"
-                  class=" px-2 py-1  text-dark-700 bg-green-100 rounded-full dark:text-white dark:bg-orange-600">
+                  class=" px-2 py-1  text-dark-700 bg-green-100 rounded-full dark:text-black dark:bg-blue-600">
                   {{ leave_request.status }}
                 </span>
                 <span v-else-if="leave_request.status === 'Approved'"
-                  class=" px-2 py-1  text-green-700 bg-green-100 rounded-full dark:text-white dark:bg-orange-600">
+                  class=" px-2 py-1  text-green-700 bg-green-100 rounded-full dark:text-black dark:bg-green-600">
                   {{ leave_request.status }}
                 </span>
                 <span v-else
-                  class=" px-2 py-1  text-red-700 bg-green-100 rounded-full dark:text-white dark:bg-orange-600">
+                  class=" px-2 py-1  text-red-700 bg-green-100 rounded-full dark:text-black dark:bg-orange-600">
                   {{ leave_request.status }}
                 </span>
               </center>

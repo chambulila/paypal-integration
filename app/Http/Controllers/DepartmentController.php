@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use Inertia\Inertia;
 use Request;
+use Auth;
+use App\Models\User;
 
 class DepartmentController extends Controller
 {
@@ -12,6 +14,8 @@ class DepartmentController extends Controller
     public function index()
     {
         return Inertia::render('Department/Index', [
+            'users' => User::where('department_id', Auth::User()->department_id)->get()->count(),
+            'can_add' => Auth::User()->role_id == 1 ? true : false,
             'filters' => Request::all('search', 'trashed'),
             'departments' => Department::paginate(10)
             ->withQueryString()
@@ -19,6 +23,7 @@ class DepartmentController extends Controller
                 'sn' => $sn+=1,
                 'name' => $data->name,
                 'code' => $data->code,
+                'users' => User::where('department_id', $data->id)->get()->count(),
             ]),
         ]);
     }

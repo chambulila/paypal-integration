@@ -21,6 +21,7 @@ class CreateLeaverequestsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('leave_type_id')->constrained();
             $table->foreignId('leave_reason_id')->constrained();
+            $table->foreignId('department_id')->constrained();
             $table->foreignId('leave_status_id')->default(0);
             $table->text('note')->nullable();
             $table->string('attachment', 200)->nullable();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\LeaveRequest;
 use App\Models\LeaveReason;
 use App\Models\LeaveStatus;
@@ -32,6 +33,9 @@ class LeaveRequestController extends Controller
 public function dashboard()
 {
     $userRole = Auth::User()->role_id;
+    $dep = Auth::User()->department_id;
+
+    
     $progress_requests_count = LeaveRequest::where('leave_status_id', 1)->whereNull('accept_reject_reason_four')->whereNotNull('accept_reject_reason_two')->get()->count();
     // dd($progress_requests_count);
     $leave_requests_count = LeaveRequest::whereIn('leave_status_id', [0, 1, 2])->get()->count();
@@ -41,19 +45,6 @@ public function dashboard()
     $rejected_requests_count = LeaveRequest::where('leave_status_id', 2)->count();
 
     if ($userRole == 1) {
-        // Rector
-        // $pending_requests = $pending_requests->get()
-        //     ->map(fn ($leave_request, $sn = 0) => [
-        //         'sn' => $sn += 1,
-        //         'start_date' => date("M d, Y", strtotime($leave_request->start_date)),
-        //         'end_date' => date("M d, Y", strtotime($leave_request->end_date)),
-        //         'number_of_days' => Carbon::parse($leave_request->end_date)->diffInDays(Carbon::parse($leave_request->start_date)),
-        //         'reference' => $leave_request->reference,
-        //         'created_at' => date("M d-Y", strtotime($leave_request->created_at)),
-        //         'status' => $leave_request->leave_status_id == 1 && $leave_request->accept_reject_reason_four == null ? 'In Progress' : ($leave_request->leave_status_id == 2 ? 'Rejected' : ($leave_request->leave_status_id == 1 && $leave_request->accept_reject_reason_four !== null ? 'Approved' : 'Pending')),
-        //         'type' => $leave_request->leaveType->name ?? '',
-        //         'user' => $leave_request->user->name ?? '',
-        //     ]);
         $progress_requests_count = 0;
         $leave_requests_count = LeaveRequest::whereNotNull('accept_reject_reason_four')->get()->count();
         $pending_requests = LeaveRequest::whereNull('accept_reject_reason_four')->whereNotNull('accept_reject_reason_three')->where('leave_status_id', 1);
@@ -70,34 +61,34 @@ public function dashboard()
         $rejected_requests_count = LeaveRequest::whereNotNull('accept_reject_reason_three')->where('leave_status_id', 2)->count();
     } elseif ($userRole == 3) {
         // Dean
-        $progress_requests_count = LeaveRequest::where('leave_status_id', 1)->whereNull('accept_reject_reason_four')->whereNotNull('accept_reject_reason_two')->get()->count();
-        $leave_requests_count = LeaveRequest::whereNotNull('accept_reject_reason_one')->get()->count();
-        $pending_requests = LeaveRequest::whereNull('accept_reject_reason_two')->whereNotNull('accept_reject_reason_one')->where('leave_status_id', 1);
-        $pending_requests_count = LeaveRequest::whereNull('accept_reject_reason_two')->whereNotNull('accept_reject_reason_one')->where('leave_status_id', 1)->count();
-        $approved_requests_count = LeaveRequest::whereNotNull('accept_reject_reason_four')->where('leave_status_id', 1)->count();
-        $rejected_requests_count = LeaveRequest::whereNotNull('accept_reject_reason_two')->where('leave_status_id', 2)->count();
+        $progress_requests_count = LeaveRequest::where('department_id', $dep)->where('leave_status_id', 1)->whereNull('accept_reject_reason_four')->whereNotNull('accept_reject_reason_two')->get()->count();
+        $leave_requests_count = LeaveRequest::where('department_id', $dep)->whereNotNull('accept_reject_reason_one')->get()->count();
+        $pending_requests = LeaveRequest::where('department_id', $dep)->whereNull('accept_reject_reason_two')->whereNotNull('accept_reject_reason_one')->where('leave_status_id', 1);
+        $pending_requests_count = LeaveRequest::where('department_id', $dep)->whereNull('accept_reject_reason_two')->whereNotNull('accept_reject_reason_one')->where('leave_status_id', 1)->count();
+        $approved_requests_count = LeaveRequest::where('department_id', $dep)->whereNotNull('accept_reject_reason_four')->where('leave_status_id', 1)->count();
+        $rejected_requests_count = LeaveRequest::where('department_id', $dep)->whereNotNull('accept_reject_reason_two')->where('leave_status_id', 2)->count();
     } elseif ($userRole == 4) {
         // HoD
-        $progress_requests_count = LeaveRequest::where('leave_status_id', 1)->whereNull('accept_reject_reason_four')->get()->count();
-        $leave_requests_count = LeaveRequest::whereNull('accept_reject_reason_one')->orWhereNotNull('accept_reject_reason_one')->get()->count();
-        $leave_requests_count = LeaveRequest::whereNull('accept_reject_reason_one')->orWhereNotNull('accept_reject_reason_one')->count();
-        $pending_requests = LeaveRequest::whereNull('accept_reject_reason_one')->where('leave_status_id', 0);
-        $pending_requests_count = LeaveRequest::whereNull('accept_reject_reason_one')->where('leave_status_id', 0)->count();
-        $approved_requests_count = LeaveRequest::whereNotNull('accept_reject_reason_four')->where('leave_status_id', 1)->get()->count();
-        $rejected_requests_count = LeaveRequest::whereNotNull('accept_reject_reason_one')->where('leave_status_id', 2)->count();
+        $progress_requests_count = LeaveRequest::where('department_id', $dep)->where('leave_status_id', 1)->whereNull('accept_reject_reason_four')->get()->count();
+        $leave_requests_count = LeaveRequest::where('department_id', $dep)->whereNull('accept_reject_reason_one')->orWhereNotNull('accept_reject_reason_one')->get()->count();
+        $leave_requests_count = LeaveRequest::where('department_id', $dep)->whereNull('accept_reject_reason_one')->orWhereNotNull('accept_reject_reason_one')->count();
+        $pending_requests = LeaveRequest::where('department_id', $dep)->whereNull('accept_reject_reason_one')->where('leave_status_id', 0);
+        $pending_requests_count = LeaveRequest::where('department_id', $dep)->whereNull('accept_reject_reason_one')->where('leave_status_id', 0)->count();
+        $approved_requests_count = LeaveRequest::where('department_id', $dep)->whereNotNull('accept_reject_reason_four')->where('leave_status_id', 1)->get()->count();
+        $rejected_requests_count = LeaveRequest::where('department_id', $dep)->whereNotNull('accept_reject_reason_one')->where('leave_status_id', 2)->count();
     } elseif ($userRole == 5) {
         // Staff
-        $progress_requests_count = LeaveRequest::where('leave_status_id', 1)->whereNull('accept_reject_reason_four')->where('user_id', Auth::User()->id)->get()->count();
-        $leave_requests_count = LeaveRequest::where('user_id', Auth::User()->id)->count();
-        $pending_requests = LeaveRequest::where('user_id', Auth::User()->id)->where('leave_status_id', 0);
-        $pending_requests_count = LeaveRequest::where('user_id', Auth::User()->id)->where('leave_status_id', 0)->count();
-        $approved_requests_count = LeaveRequest::where('user_id', Auth::User()->id)->whereNotNull('accept_reject_reason_four')->where('leave_status_id', 1)->get()->count();
-        $rejected_requests_count = LeaveRequest::where('user_id', Auth::User()->id)->where('leave_status_id', 2)->count();
+        $progress_requests_count = LeaveRequest::where('department_id', $dep)->where('leave_status_id', 1)->whereNull('accept_reject_reason_four')->where('user_id', Auth::User()->id)->get()->count();
+        $leave_requests_count = LeaveRequest::where('department_id', $dep)->where('user_id', Auth::User()->id)->count();
+        $pending_requests = LeaveRequest::where('department_id', $dep)->where('user_id', Auth::User()->id)->where('leave_status_id', 0);
+        $pending_requests_count = LeaveRequest::where('department_id', $dep)->where('user_id', Auth::User()->id)->where('leave_status_id', 0)->count();
+        $approved_requests_count = LeaveRequest::where('department_id', $dep)->where('user_id', Auth::User()->id)->whereNotNull('accept_reject_reason_four')->where('leave_status_id', 1)->get()->count();
+        $rejected_requests_count = LeaveRequest::where('department_id', $dep)->where('user_id', Auth::User()->id)->where('leave_status_id', 2)->count();
     }
 
     $userRole = Auth::user()->role_id;
 
-// Mchagua jinsi ya kuonesha statasi kulingana na jukumu la mtumiaji
+// chagua jinsi ya kuonesha status kulingana na role ya user
 if ($userRole == 5) {
     $pending_requests = $pending_requests->get()->map(fn ($leave_request, $sn = 0) => [
         'sn' => $sn += 1,
@@ -118,6 +109,7 @@ if ($userRole == 5) {
         'reference' => $leave_request->reference,
         'type' => $leave_request->leaveType->name ?? '',
         'user' => $leave_request->user->name ?? '',
+        'created_at' => date("M d, Y", strtotime($leave_request->created_at)),
         'status' => $leave_request->leave_status_id == 1 && $leave_request->accept_reject_reason_four == null ? 'In Progress' : ($leave_request->leave_status_id == 2 ? 'Rejected' : ($leave_request->leave_status_id == 1 && $leave_request->accept_reject_reason_four !== null ? 'Approved' : 'Pending'))  
     ]);
 } elseif ($userRole == 3) {
@@ -279,7 +271,7 @@ function determineStatus($leave_request, $userRole)
         // dd(request()->all());
         $month = empty(!request('month')) ? Carbon::parse(request('month')) : null;
         $ltype = !empty(request('ltype')) ? [(int)request('ltype')] : '';
-        $leave_requests = LeaveRequest::whereNotNull('created_at');
+        $leave_requests = in_array(Auth::User()->role_id, [1, 2, 3]) ? LeaveRequest::whereNotNull('created_at') : LeaveRequest::where('department_id', Auth::User()->department_id);
         if(Auth::User()->role_id == 1){
             if (request('read') == 'progress') {
                 $leave_requests->where('leave_status_id', 1)->whereNotNull('accept_reject_reason_four')->whereNull('accept_reject_reason_four');
@@ -504,28 +496,12 @@ function determineStatus($leave_request, $userRole)
 
     public function create()
     {
-        // $isParent = Auth::User()->account_type_id == 3 ? true : false;
-        $types = LeaveType::get(['id', 'name']);
-        $reasons = LeaveReason::get(['id', 'name']);
-        $start_date = now()->addDays(14)->toDateString();
-        // dd(date("d-m-Y", strtotime($start_date)));
-        // if ($isParent) {
-        //     $studentIds = Auth::User()->studentParents->pluck('student_id');
-        //     $students = \App\Models\Student::whereIn('id', $studentIds)->get(['id', 'name']);
-        //     return Inertia::render('LeaveRequest/Create', [
-        //         'leave_type' => $types,
-        //         'start_date' => $start_date,
-        //         'reasons' => $reasons,
-        //         'students' => count($students) > 0 ? $students : null,
-        //     ]);
-        // }else{
             return Inertia::render('LeaveRequest/Create', [
-                'leave_type' => $types,
-                '_date' => $start_date,
+                'leave_type' => LeaveType::get(['id', 'name']),
+                '_date' => now()->addDays(14)->toDateString(),
                 'todate' => now()->toDateString(),
-                'reasons' => $reasons,
+                'reasons' =>  LeaveReason::get(['id', 'name']),
             ]);
-        // }
     }
 
 
@@ -551,6 +527,7 @@ function determineStatus($leave_request, $userRole)
                 'reference' => uniqid(),
                 'user_id' => Auth::user()->id ?? 1,
                 'attachment' => $attachemt_path,
+                'department_id' => Auth::User()->department_id,
             ]);
         } else {
             LeaveRequest::create([
@@ -561,6 +538,7 @@ function determineStatus($leave_request, $userRole)
                 'leave_reason_id' => $request->leave_reason,
                 'reference' => uniqid(),
                 'user_id' => Auth::user()->id,
+                'department_id' => Auth::User()->department_id,
             ]);
         }
         return redirect('/leaverequests/index')->with('message', 'Request submitted successfully');
@@ -569,6 +547,8 @@ function determineStatus($leave_request, $userRole)
 
     public function show($id)
     {
+        $admin_dept = Auth::User()->department_id;
+        $role = Auth::User()->role_id;
         $leave_request = LeaveRequest::with('user', 'leavestatus')->where('reference', $id)->get()->map(fn ($leave_request) => [
             'start_date' => date("M d, Y", strtotime($leave_request->start_date)),
             'end_date' => date("M d, Y", strtotime($leave_request->end_date)),
@@ -578,10 +558,14 @@ function determineStatus($leave_request, $userRole)
             'leave_status_id' => $leave_request->leave_status_id,
             'note' => $leave_request->note,
             'attachment' => $leave_request->attachment,
-            'status' => $leave_request->leave_status_id == 1  && $leave_request->accept_reject_reason_four == null ? 'In Progress' : ($leave_request->leave_status_id == 2 ? 'Rejected' : ($leave_request->leave_status_id == 1  &&  $leave_request->accept_reject_reason_four !== null ? 'Approved' : 'Pending')),
+            'status' => $role == 1 ? $leave_request->leave_status_id == 1  && $leave_request->accept_reject_reason_four !== null && $leave_request->accept_reject_reason_four == null ? 'In Progress' : ($leave_request->leave_status_id == 2 ? 'Rejected' : ($leave_request->leave_status_id == 1  &&  $leave_request->accept_reject_reason_four !== null ? 'Approved' : 'Pending'))
+                            : ($role == 2 ? $leave_request->leave_status_id == 1  && $leave_request->accept_reject_reason_three !== null && $leave_request->accept_reject_reason_four == null ? 'In Progress' : ($leave_request->leave_status_id == 2 ? 'Rejected' : ($leave_request->leave_status_id == 1  &&  $leave_request->accept_reject_reason_four !== null ? 'Approved' : 'Pending'))
+                            : ($role == 3 ? $leave_request->leave_status_id == 1  && $leave_request->accept_reject_reason_two !== null && $leave_request->accept_reject_reason_four == null ? 'In Progress' : ($leave_request->leave_status_id == 2 ? 'Rejected' : ($leave_request->leave_status_id == 1  &&  $leave_request->accept_reject_reason_four !== null ? 'Approved' : 'Pending'))
+                            : ($role == 4 ? $leave_request->leave_status_id == 1  && $leave_request->accept_reject_reason_one !== null && $leave_request->accept_reject_reason_four == null ? 'In Progress' : ($leave_request->leave_status_id == 2 ? 'Rejected' : ($leave_request->leave_status_id == 1  &&  $leave_request->accept_reject_reason_four !== null ? 'Approved' : 'Pending'))
+                            : ($leave_request->leave_status_id == 1 && $leave_request->accept_reject_reason_four == null ? 'In Progress' : ($leave_request->leave_status_id == 2 ? 'Rejected' : ($leave_request->leave_status_id == 1  &&  $leave_request->accept_reject_reason_four !== null ? 'Approved' : 'Pending')))))),
+            // 'status' => $leave_request->leave_status_id == 1  && $leave_request->accept_reject_reason_four == null ? 'In Progress' : ($leave_request->leave_status_id == 2 ? 'Rejected' : ($leave_request->leave_status_id == 1  &&  $leave_request->accept_reject_reason_four !== null ? 'Approved' : 'Pending')),
             'type' => $leave_request->leavetype->name,
             'position' => $leave_request->accept_reject_reason_one == null ? 'HoD Stage' : ($leave_request->accept_reject_reason_two == null ? 'Dean Stage' : ($leave_request->accept_reject_reason_three == null ? 'HR Stage' : 'Rector Stage')),
-            // 'inNeed' => $leave_request->student->name,
             'user' => $leave_request->user->name,
             'role' => $leave_request->user->role->name,
             'role_id' => $leave_request->user->role->id,
@@ -592,9 +576,7 @@ function determineStatus($leave_request, $userRole)
         return Inertia::render('LeaveRequest/Show', [ 
         'back_url' => url()->previous(),
         'leave_request' => $leave_request,
-        'canManage' =>  Auth::User()->role_id !== 5 && $leave_request['role_id'] !== Auth::User()->role_id ? true : false ,            
+        'canManage' =>  Auth::User()->role_id !== 5 && $leave_request['role_id'] !== Auth::User()->role_id && $leave_request['status'] !== 'Rejected' ? true : false ,            
     ]);
     }
-
-
 }

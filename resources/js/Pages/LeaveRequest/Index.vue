@@ -6,7 +6,7 @@
       <icon name="stack" />
       <span class="pl-4">List of Leave Requests</span>
     </div>
-    <a :href="`${back_url}`" title="Go Back">
+    <a :href="'/leaverequests/dashboard'" title="Go Back">
       Go Back &RightArrow;
     </a>
   </div>

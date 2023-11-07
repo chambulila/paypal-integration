@@ -22103,7 +22103,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     ltype: Number,
     month: Object,
-    back_url: String
+    back_url: String,
+    can_add: Boolean
   },
   data: function data() {
     return {
@@ -24246,6 +24247,7 @@ var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
 });
 var _hoisted_4 = ["href"];
 var _hoisted_5 = {
+  key: 0,
   "class": "flex-1 mt-6 text-sm flex justify-end"
 };
 var _hoisted_6 = {
@@ -24283,11 +24285,9 @@ var _hoisted_12 = {
 var _hoisted_13 = {
   "class": "px-2 py-2 text-xs"
 };
-var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
-    "class": "px-2 py-2 text-sm"
-  }, " 456 ", -1 /* HOISTED */);
-});
+var _hoisted_14 = {
+  "class": "px-2 py-2 text-sm"
+};
 var _hoisted_15 = {
   key: 1
 };
@@ -24301,7 +24301,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), _hoisted_3]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "".concat($props.back_url),
     title: "Go Back"
-  }, " Go Back → ", 8 /* PROPS */, _hoisted_4)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"w-full flex mt-0\">\r\n    <search-filter v-model=\"form.search\" class=\"mr-4 flex-grow max-w-md\" @reset=\"reset\"></search-filter>\r\n    <form class=\"form-horizontal w-1/2 ml-5 mb-5\" role=\"form\" method=\"post\">\r\n      <div class=\"flex gap-6\">\r\n        <div class='flex-1 mt-1 text-sm'>\r\n          <label class=\"block text-sm text-gray-700 dark:text-gray-400\">Leave Type</label>\r\n          <select v-model=\"ltype\" @change=\"getByType()\"\r\n            class=\"block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-blue-500 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray\">\r\n            <option value=\"\" selected>Select leave type</option>\r\n            <option v-for=\"subject in leavetypes\" :key=\"subject.id\" :value=\"subject.id\">{{ subject.name }}\r\n            </option>\r\n          </select>\r\n          <a v-if=\"ltype.length != 0\"\r\n            class=\"group relative inline-flex items-center overflow-hidden rounded border border-current px-8 py-2 text-indigo-600 focus:outline-none focus:ring active:text-indigo-500\"\r\n            :href=\"`/departments-print?read=print&&ltype=${ltype}&&date=${month}`\" target=\"_blank\">\r\n            <span class=\"absolute -start-full transition-all group-hover:start-4\">\r\n              <icon name=\"backarrow\" />\r\n            </span>\r\n            <span class=\"text-sm font-medium transition-all group-hover:ms-4\">\r\n              Print Report\r\n            </span>\r\n          </a>\r\n        </div>\r\n        <div class='flex-1 mt-1 text-sm'>\r\n          <text-input type=\"month\" label=\"Month\" v-model=\"stmonth\" @change=\"getByMonth()\"></text-input>\r\n        </div>\r\n      </div>\r\n    </form>\r\n  </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkWithIcon, {
+  }, " Go Back → ", 8 /* PROPS */, _hoisted_4)]), $props.can_add ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LinkWithIcon, {
     "link-route": "/departments/create",
     title: "Add Department"
   }, {
@@ -24309,11 +24309,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" + ")];
     }),
     _: 1 /* STABLE */
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [$props.departments.data.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.departments.data, function (leave_request) {
+  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [$props.departments.data.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.departments.data, function (leave_request) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: leave_request.id,
       "class": "text-gray-700 dark:text-gray-400"
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(leave_request.sn), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(leave_request.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(leave_request.code), 1 /* TEXT */), _hoisted_14]);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(leave_request.sn), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(leave_request.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(leave_request.code), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(leave_request.users), 1 /* TEXT */)]);
   }), 128 /* KEYED_FRAGMENT */))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.departments.data.length === 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_15, "No leave request found")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_FlashMessages), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pagination, {
     "class": "mt-4",
     links: $props.departments.links
@@ -24846,10 +24846,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "flex my-3 justify-between bg-sky-100"
+  "class": "flex my-3 justify-between bg-sky-100 dark:bg-slate-600"
 };
 var _hoisted_2 = {
-  "class": "text-lg border-b font-semibold text-gray-600 dark:text-gray-300"
+  "class": "text-lg border-b font-semibold text-gray-600 dark:text-gray-300 dark:bg-slate-600"
 };
 var _hoisted_3 = {
   "class": "grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4"
@@ -25041,15 +25041,15 @@ var _hoisted_46 = {
 };
 var _hoisted_47 = {
   key: 0,
-  "class": "px-2 py-1 text-dark-700 bg-green-100 rounded-full dark:text-white dark:bg-orange-600"
+  "class": "px-2 py-1 text-dark-700 bg-green-100 rounded-full dark:text-black dark:bg-blue-600"
 };
 var _hoisted_48 = {
   key: 1,
-  "class": "px-2 py-1 text-green-700 bg-green-100 rounded-full dark:text-white dark:bg-orange-600"
+  "class": "px-2 py-1 text-green-700 bg-green-100 rounded-full dark:text-black dark:bg-green-600"
 };
 var _hoisted_49 = {
   key: 2,
-  "class": "px-2 py-1 text-red-700 bg-green-100 rounded-full dark:text-white dark:bg-orange-600"
+  "class": "px-2 py-1 text-red-700 bg-green-100 rounded-full dark:text-black dark:bg-orange-600"
 };
 var _hoisted_50 = {
   "class": "text-center"
@@ -25196,7 +25196,12 @@ var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
     "class": "pl-4"
   }, "List of Leave Requests", -1 /* HOISTED */);
 });
-var _hoisted_4 = ["href"];
+var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    href: '/leaverequests/dashboard',
+    title: "Go Back"
+  }, " Go Back → ", -1 /* HOISTED */);
+});
 var _hoisted_5 = {
   "class": "w-full flex-auto"
 };
@@ -25317,10 +25322,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_pagination = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("pagination");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_icon, {
     name: "stack"
-  }), _hoisted_3]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    href: "".concat($props.back_url),
-    title: "Go Back"
-  }, " Go Back → ", 8 /* PROPS */, _hoisted_4)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"w-full flex mt-0\">\r\n    <search-filter v-model=\"form.search\" class=\"mr-4 flex-grow max-w-md\" @reset=\"reset\"></search-filter>\r\n    <form class=\"form-horizontal w-1/2 ml-5 mb-5\" role=\"form\" method=\"post\">\r\n      <div class=\"flex gap-6\">\r\n        <div class='flex-1 mt-1 text-sm'>\r\n          <label class=\"block text-sm text-gray-700 dark:text-gray-400\">Leave Type</label>\r\n          <select v-model=\"ltype\" @change=\"getByType()\"\r\n            class=\"block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-blue-500 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray\">\r\n            <option value=\"\" selected>Select leave type</option>\r\n            <option v-for=\"subject in leavetypes\" :key=\"subject.id\" :value=\"subject.id\">{{ subject.name }}\r\n            </option>\r\n          </select>\r\n          <a v-if=\"ltype.length != 0\"\r\n            class=\"group relative inline-flex items-center overflow-hidden rounded border border-current px-8 py-2 text-indigo-600 focus:outline-none focus:ring active:text-indigo-500\"\r\n            :href=\"`/leaverequests-print?read=print&&ltype=${ltype}&&date=${month}`\" target=\"_blank\">\r\n            <span class=\"absolute -start-full transition-all group-hover:start-4\">\r\n              <icon name=\"backarrow\" />\r\n            </span>\r\n            <span class=\"text-sm font-medium transition-all group-hover:ms-4\">\r\n              Print Report\r\n            </span>\r\n          </a>\r\n        </div>\r\n        <div class='flex-1 mt-1 text-sm'>\r\n          <text-input type=\"month\" label=\"Month\" v-model=\"stmonth\" @change=\"getByMonth()\"></text-input>\r\n        </div>\r\n      </div>\r\n    </form>\r\n  </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }), _hoisted_3]), _hoisted_4]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"w-full flex mt-0\">\r\n    <search-filter v-model=\"form.search\" class=\"mr-4 flex-grow max-w-md\" @reset=\"reset\"></search-filter>\r\n    <form class=\"form-horizontal w-1/2 ml-5 mb-5\" role=\"form\" method=\"post\">\r\n      <div class=\"flex gap-6\">\r\n        <div class='flex-1 mt-1 text-sm'>\r\n          <label class=\"block text-sm text-gray-700 dark:text-gray-400\">Leave Type</label>\r\n          <select v-model=\"ltype\" @change=\"getByType()\"\r\n            class=\"block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-blue-500 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray\">\r\n            <option value=\"\" selected>Select leave type</option>\r\n            <option v-for=\"subject in leavetypes\" :key=\"subject.id\" :value=\"subject.id\">{{ subject.name }}\r\n            </option>\r\n          </select>\r\n          <a v-if=\"ltype.length != 0\"\r\n            class=\"group relative inline-flex items-center overflow-hidden rounded border border-current px-8 py-2 text-indigo-600 focus:outline-none focus:ring active:text-indigo-500\"\r\n            :href=\"`/leaverequests-print?read=print&&ltype=${ltype}&&date=${month}`\" target=\"_blank\">\r\n            <span class=\"absolute -start-full transition-all group-hover:start-4\">\r\n              <icon name=\"backarrow\" />\r\n            </span>\r\n            <span class=\"text-sm font-medium transition-all group-hover:ms-4\">\r\n              Print Report\r\n            </span>\r\n          </a>\r\n        </div>\r\n        <div class='flex-1 mt-1 text-sm'>\r\n          <text-input type=\"month\" label=\"Month\" v-model=\"stmonth\" @change=\"getByMonth()\"></text-input>\r\n        </div>\r\n      </div>\r\n    </form>\r\n  </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return _ctx.search = $event;
     }),
@@ -25611,9 +25613,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_DeleteLink = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DeleteLink");
   var _component_PrimaryButton = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("PrimaryButton");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_SecondaryLink, {
-    "link-route": "".concat($props.back_url),
+    "link-route": "/leaverequests/index",
     title: "Back"
-  }, null, 8 /* PROPS */, ["link-route"]), $props.canManage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SecondaryLink, {
+  }), $props.canManage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SecondaryLink, {
     key: 0,
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $options.showModal($props.leave_request.reference, 1);

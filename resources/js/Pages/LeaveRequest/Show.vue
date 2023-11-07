@@ -7,7 +7,7 @@
           Leave Request Details
         </p>
         <span class="ml-auto flex justify-end space-x-4">
-          <SecondaryLink :link-route="`${back_url}`" title="Back"/>
+          <SecondaryLink :link-route="`/leaverequests/index`" title="Back"/>
           <SecondaryLink v-if="canManage"  @click="showModal(leave_request.reference, 1)" title="Approve"/>
           <DeleteLink v-if="canManage" class="bg-genered text-black hover:text-white" @click="showModal(leave_request.reference, 2)" title="Reject"/>
         </span>
@@ -108,8 +108,6 @@
           <div class="col-span-2">
             <div class="grid grid-cols-1">
               <div class="col-span-1">
-
-
                 <tr class="text-gray-700  dark:text-gray-400">
                   <th class="text-left px-5">Request Note</th>
                   <td class="text-left px-4 py-3 text-sm">

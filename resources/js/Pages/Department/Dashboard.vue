@@ -19,14 +19,14 @@
 </svg>
       </div>
       <div>
-        <Link :href="'/leaverequests/index'">
+        <!-- <Link :href="'/leaverequests/index'"> -->
         <p class="mb-0 text-sm font-medium text-gray-600 dark:text-gray-400">
           Total 
         </p>
         <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
           {{ leave_requests_count }}
         </p>
-        </Link>
+        <!-- </Link> -->
       </div>
     </div>
     <!-- Card -->

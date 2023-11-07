@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/logoNEW.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/logoNEW.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/logoNEW.png">
-    <title>Genesis Schools Tanzania</title>
+    <title>NIT LEAVE MANAGEMENT SYSTEM</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <script src="{{ mix('js/app.js') }}" defer></script>

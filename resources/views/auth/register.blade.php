@@ -8,7 +8,7 @@
 			</center>
 	</div>
 
-		<div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+		<div class="w-full xl:max-w-xl mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
 			<!-- Validation Errors -->
 			@if ($errors->any())
 				<div class="mb-4">
@@ -24,11 +24,12 @@
 				</div>
 			@endif
 
-	<div class="flex w-auto">
 		<form method="POST" action="{{ url('users/store') }}">
 			@csrf
 
-			<!-- Name -->
+			<div class="px-2  mb-1 bg-white rounded-lg shadow-md dark:bg-gray-800">
+				<div class="grid gap-2 mb-2 mt-3 md:grid-cols-2">
+				<!-- Name -->
 				<div>
 					<label for="name" class="block font-medium text-sm text-gray-700">
 						{{ __('Name') }}
@@ -62,40 +63,42 @@
 					@endforeach
 				  </select>
 				</div>
-				<div class="form-group">
-					<label for="">Role</label>
-					<select class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="role_id" >
-					  <option>----select---</option>
-					  @foreach(\App\Models\Role::all() as $dep)
-					  <option value="{{ $dep->id }}" >{{ $dep->name }}</option>
-					  @endforeach
-					</select>
-				  </div>
-					<!-- Password -->
-					<div class="mt-4">
-						<label for="password" class="block font-medium text-sm text-gray-700">
-							{{ __('Reginstation Number') }}
-						</label>
-	
-						<input id="reg" name="reg" type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-					</div>
+
+			<div class="form-group">
+				<label for="">Role</label>
+				<select class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="role_id" >
+				  <option>----select---</option>
+				  @foreach(\App\Models\Role::all() as $dep)
+				  <option value="{{ $dep->id }}" >{{ $dep->name }}</option>
+				  @endforeach
+				</select>
+			  </div>
 				<!-- Password -->
 				<div class="mt-4">
 					<label for="password" class="block font-medium text-sm text-gray-700">
-						{{ __('Password') }}
+						{{ __('Registration Number') }}
 					</label>
 
-					<input id="password" name="password" type="password" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required autocomplete="new-password">
+					<input id="reg" name="reg" type="text" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
 				</div>
+			<!-- Password -->
+			<div class="mt-4">
+				<label for="password" class="block font-medium text-sm text-gray-700">
+					{{ __('Password') }}
+				</label>
 
-				<!-- Confirm Password -->
-				<div class="mt-4">
-					<label for="password_confirmation" class="block font-medium text-sm text-gray-700">
-						{{ __('Confirm Password') }}
-					</label>
+				<input id="password" name="password" type="password" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required autocomplete="new-password">
+			</div>
 
-					<input id="password_confirmation" name="password_confirmation" type="password" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-				</div>
+			<!-- Confirm Password -->
+			<div class="mt-4">
+				<label for="password_confirmation" class="block font-medium text-sm text-gray-700">
+					{{ __('Confirm Password') }}
+				</label>
+
+				<input id="password_confirmation" name="password_confirmation" type="password" class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+			</div>
+
 
 				<div class="flex items-center justify-end mt-4">
 					<a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
@@ -106,8 +109,8 @@
 						{{ __('Register') }}
 					</button>
 				</div>
+				</div>
 			</form>
-	</div>
 		</div>
 	</div>
 @endsection

@@ -44,6 +44,9 @@ Route::post('departments/store', [DepartmentController::class, 'store'])->name('
 Route::get('departments/dashboard', [DepartmentController::class, 'dashboard'])->name('departments.dashboard');
 Route::get('departments/index', [DepartmentController::class, 'index']);
 Route::get('/departments/show/{id}', [DepartmentController::class, 'show']);
+Route::delete('/departments/delete/{id}', [DepartmentController::class, 'destroy']);
+Route::get('/departments/edit/{id}', [DepartmentController::class, 'edit']);
+Route::post('/departments/update/{id}', [DepartmentController::class, 'update']);
 
 Route::get('users/create', [UserController::class, 'create'])->name('users.create');
 Route::get('users/import/add', [UserController::class, 'importCreate']);
@@ -51,7 +54,12 @@ Route::post('users/import/store', [UserController::class, 'importStore']);
 Route::post('users/store', [UserController::class, 'store'])->name('users.store');
 Route::get('users/dashboard', [UserController::class, 'dashboard'])->name('users.dashboard');
 Route::get('users/index', [UserController::class, 'index']);
-Route::get('/users/show/{id}', [UserController::class, 'show']);
+// Route::get('/users/show/{id}', [UserController::class, 'show']);
+Route::get('/users/edit/{id}', [UserController::class, 'edit']);
+Route::post('/users/update/{id}', [UserController::class, 'update']);
+Route::delete('/users/destroy/{id}', [UserController::class, 'destroy']);
+Route::get('/user/change-password', [UserController::class, 'changePassword']);
+Route::post('/users/update-password', [UserController::class, 'updatePassword']);
 
 Route::post('tests/store', [TestController::class, 'store'])->name('tests.store');
 Route::get('tests/index', [TestController::class, 'index'])->name('tests.index');

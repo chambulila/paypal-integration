@@ -22,6 +22,7 @@ class DepartmentController extends Controller
             ->through(fn ($data, $sn=0) => [
                 'sn' => $sn+=1,
                 'name' => $data->name,
+                'uuid' => $data->uuid,
                 'code' => $data->code,
                 'users' => User::where('department_id', $data->id)->get()->count(),
             ]),
@@ -37,13 +38,14 @@ class DepartmentController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        request()->validate([
             'name' => 'required',
             'code' => 'required',
         ]);
         Department::create([
             'name' => request('name'),
             'code' => request('code'),
+            'uuid' => uniqid(),
         ]);
         return redirect('/departments/index')->with('message', 'Department added successfully');
     }
@@ -57,17 +59,17 @@ class DepartmentController extends Controller
     }
 
 
-    public function edit(Department $department)
+    public function edit($department)
     {
-        return inertia('Department/Show', [
-            'department' => Department::where('uuid', $department)->get()
+        return inertia('Department/Edit', [
+            'department' => Department::where('uuid', $department)->first()
         ]);
     }
 
  
-    public function update(Request $request, $department)
+    public function update($department)
     {
-        $request->validate([
+        request()->validate([
             'name' => 'required',
             'code' => 'required',
         ]);
@@ -75,13 +77,13 @@ class DepartmentController extends Controller
             'name' => request('name'),
             'code' => request('code'),
         ]);
-        return redirect('/departments/index')->with('message', 'Department updated successfully');
+        return redirect('/departments/index')->with('success', 'Department updated successfully');
     }
 
 
-    public function destroy(Department $department)
+    public function destroy($department)
     {
-        $department->delete();
-        return redirect('/departments/index')->with('message', 'Department deleted successfully');
+       Department::where('uuid', $department)->first()->delete();
+        return redirect('/departments/index')->with('success', 'Department deleted successfully');
     }
 }

@@ -24,7 +24,8 @@
 				</div>
 			@endif
 
-			<form method="POST" action="{{ route('register') }}">
+	<div class="flex w-auto">
+		<form method="POST" action="{{ url('users/store') }}">
 			@csrf
 
 			<!-- Name -->
@@ -61,6 +62,15 @@
 					@endforeach
 				  </select>
 				</div>
+				<div class="form-group">
+					<label for="">Role</label>
+					<select class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="role_id" >
+					  <option>----select---</option>
+					  @foreach(\App\Models\Role::all() as $dep)
+					  <option value="{{ $dep->id }}" >{{ $dep->name }}</option>
+					  @endforeach
+					</select>
+				  </div>
 					<!-- Password -->
 					<div class="mt-4">
 						<label for="password" class="block font-medium text-sm text-gray-700">
@@ -97,6 +107,7 @@
 					</button>
 				</div>
 			</form>
+	</div>
 		</div>
 	</div>
 @endsection

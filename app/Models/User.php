@@ -15,12 +15,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'phone',
-        'reg',
-        'department_id',
-        'reference',
         'password',
-        'role_id',
     ];
 
 
@@ -34,13 +29,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role()
-    {
-        return $this->belongsTo(Role::class, 'role_id', 'id')->withDefault(['name' => 'Not Defined']);
-    }
-
-    public function department()
-    {
-        return $this->belongsTo(Department::class, 'department_id', 'id')->withDefault(['name' => 'Not Defined']);
-    }
 }

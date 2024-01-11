@@ -17,14 +17,9 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Mganilwa',
-            'email' => 'mganilwa@gmail.com',
-            'phone' => '0712345678',
-            'role_id' => '1',
-            'department_id' => '1',
-            'password' => Hash::make('00000000'),
-            'reference' => uniqid(),
-            'reg' => 'NIT/REC/001',
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('1234567890'),
         ]);
     }
 }

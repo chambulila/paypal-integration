@@ -3,8 +3,7 @@
 	<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
 		<div>
 				<center>
-					<img src="{{ asset('NIT_logoBg.png') }}" alt="" width="10%">
-					<span class="uppercase font-bold">nit leave request management system</span>
+					<span class="uppercase font-bold">paypal intergration</span>
 				</center>
 		</div>
 

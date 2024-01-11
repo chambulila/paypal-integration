@@ -682,8 +682,6 @@ video {
   max-width: 28rem;
 }.max-w-xl {
   max-width: 36rem;
-}.max-w-lg {
-  max-width: 32rem;
 }.flex-1 {
   flex: 1 1 0%;
 }.flex-auto {
@@ -1567,8 +1565,6 @@ video {
     max-width: 28rem;
   }.sm\:max-w-xl {
     max-width: 36rem;
-  }.sm\:max-w-lg {
-    max-width: 32rem;
   }.sm\:flex-1 {
     flex: 1 1 0%;
   }.sm\:grid-cols-9 {
@@ -1659,10 +1655,6 @@ video {
   }
 }@media (min-width: 1024px) {.lg\:mr-32 {
     margin-right: 8rem;
-  }.lg\:max-w-lg {
-    max-width: 32rem;
-  }.lg\:max-w-sm {
-    max-width: 24rem;
   }.lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;

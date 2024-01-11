@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Genesis School System">
     <meta name="keywords"
-        content="Genesis School, School Integrated System, school software, school management, albogast, Albogast Kiyogoma, Albolink">
+        content="Paypal  intergration">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/logoNEW.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/logoNEW.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/logoNEW.png">
-    <title>NIT LEAVE MANAGEMENT SYSTEM</title>
+    <title>Paypal Intergration</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <script src="{{ mix('js/app.js') }}" defer></script>
@@ -39,14 +38,11 @@ $thispage = request()->segment(1);
           class="z-20 hidden w-64 overflow-y-auto bg-gray-800 dark:bg-gray-800 md:block flex-shrink-0">
           <div class="py-1 text-white dark:text-gray-400">
               <a class="ml-10 text-lg font-bold text-white dark:text-gray-200" href="{{ url('/home') }}">
-                  <img aria-hidden="true" class="h-full ml-6 dark:hidden" src="{{ asset('NIT_logoBg.png') }}" alt=""
-                      width="60%" />
+                  {{-- <img aria-hidden="true" class="h-full ml-6 dark:hidden" src="" alt=""
+                      width="60%" /> --}}
               </a>
               <ul class="mt-4 text-gray-100">
                       <li class="relative px-6 py-1">
-                          @if($thispage == 'home' ||$thispage == 'dashboard' || $thispage == '')
-                           <?=$current_page?>
-                          @endif
                           <a class="inline-flex items-center w-full text-sm font-semibol duration-150  dark:hover:text-gray-200"
                               href="{{ url('/') }}">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -55,29 +51,27 @@ $thispage = request()->segment(1);
                               <span class="ml-4">Home</span>
                           </a>
                       </li>
-                      @if(in_array(Auth::User()->role_id, [1, 2, 3]))
-                      <li class="relative px-6 py-1">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150  dark:hover:text-gray-200"
-                            href="{{ url('departments/index') }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                              </svg>
-                            <span class="ml-4">Departments</span>
-                        </a>
-                    </li>
-                    @endif
-                   @if(Auth::User()->role_id !== 5)
+
                    <li class="relative px-6 py-1">
                     <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150  dark:hover:text-gray-200"
-                        href="{{ url('users/index') }}">
+                        href="{{ url('tasks') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
                           </svg>                              
 
-                        <span class="ml-4">Staff</span>
+                        <span class="ml-4">Tasks</span>
                     </a>
                 </li>
-                   @endif
+                <li class="relative px-6 py-1">
+                    <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150  dark:hover:text-gray-200"
+                        href="{{ url('payment-list') }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                          </svg>                              
+
+                        <span class="ml-4">Payments</span>
+                    </a>
+                </li>
                       <li class="relative px-6 py-1">
                           <button
                               class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150  dark:hover:text-gray-200"
@@ -108,23 +102,9 @@ $thispage = request()->segment(1);
                                   aria-label="submenu">
                                   <li
                                       class="px-2 py-2 transition-colors duration-150  dark:hover:text-gray-200">
-                                      <a class="w-full" href="{{ url('academic') }}">Academics</a>
-                                  </li>
-                                  <li
-                                      class="px-2 py-2 transition-colors duration-150  dark:hover:text-gray-200">
                                       <a class="w-full" href="{{ url('/user/change-password') }}">
                                           Change Password
                                       </a>
-                                  </li>
-                                  <li
-                                      class="px-2 py-2 transition-colors duration-150  dark:hover:text-gray-200">
-                                      <a class="w-full" href="{{ url('permission') }}">
-                                          Permissions
-                                      </a>
-                                  </li>
-                                  <li
-                                      class="px-2 py-2 transition-colors duration-150  dark:hover:text-gray-200">
-                                      <a class="w-full" href="{{ url('system') }}">System Setting</a>
                                   </li>
                               </ul>
                           </template>
@@ -219,7 +199,7 @@ $thispage = request()->segment(1);
                           aria-haspopup="true">
                           <img class="object-cover w-8 h-8 rounded-full"
                               src="{{ Auth::User() && Auth::User()->profile_photo_url != '' ? Auth::User()->profile_photo_url : '/profile.svg' }}"
-                              alt="Genesis School" aria-hidden="true" />
+                              alt="logo" aria-hidden="true" />
                       </button>
                       <template x-if="isProfileMenuOpen">
                           <ul x-transition:leave="transition ease-in duration-150"
@@ -293,24 +273,6 @@ $thispage = request()->segment(1);
                                     <span>Log out</span>
                                 </a>
                             </li>
-                              <li class="flex">
-                                  {{-- <a class="inline-flex items-center w-full px-2 py-2 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100  dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                      href="{{ route('logout') }}"
-                                      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                      <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                          style="display: none;">
-                                          {{ csrf_field() }}
-                                      </form>
-                                      <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
-                                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          viewBox="0 0 24 24" stroke="currentColor">
-                                          <path
-                                              d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                                          </path>
-                                      </svg>
-                                      <span>Log out</span>
-                                  </a> --}}
-                              </li>
                           </ul>
                       </template>
                   </li>
@@ -319,109 +281,15 @@ $thispage = request()->segment(1);
         </header>
         <main class="h-full overflow-y-auto">
           <div class="container px-6 mb-6 mx-auto grid">
-              <div id="search_result" style="display: none;"
-                  class="min-w-0 mt-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                  {{-- Search data goes here --}}
-              </div>
+            <div id="search_result" style="display: none;"
+            class="min-w-0 mt-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+            {{-- Search data goes here --}}
+        </div>
               @inertia
           </div>
         </main>
       </div>
   </div>
-
-    <script>
-        results = function() {
-            $('#search_here').keyup(function() {
-                var q = $(this).val();
-                $.ajax({
-                    type: 'POST',
-                    url: "<?= url('/searchs') ?>",
-                    data: "q=" + q,
-                    dataType: "html",
-                    success: function(data) {
-                        $('#search_result').html(data).show();
-                    }
-                });
-            });
-        }
-        $(document).ready(results);
-
-
-        $(document).ready(function() {
-            $('form').on('submit', function(e) {
-                // validation code here
-                e.preventDefault();
-            });
-        });
-
-        $(document).ready(function() {
-            $('.select-single').select2();
-            $('.select-multiple').select2();
-
-            $('#class_id').change(function(event) {
-                var class_id = $(this).val();
-                if (class_id === '0') {
-                    $('#class_id').val(0);
-                } else {
-                    $.ajax({
-                        type: 'POST',
-                        url: "<?= url('classes/sectioncall') ?>",
-                        data: {
-                            "id": class_id,
-                            all_section: 1
-                        },
-                        dataType: "html",
-                        success: function(data) {
-                            $('#section_id').html(data);
-                        }
-                    });
-                }
-            });
-
-
-            $('#class_id').change(function(event) {
-                var class_id = $(this).val();
-                if (class_id === '0') {
-                    $('#class_id').val(0);
-                } else {
-                    $.ajax({
-                        type: 'POST',
-                        url: "<?= url('classes/call_academicyear') ?>",
-                        data: "class_id=" + class_id,
-                        dataType: "html",
-                        success: function(data) {
-                            $('#academicyear_id').html(data);
-                        }
-                    });
-                }
-            });
-            toastr.options = {
-                "closeButton": true,
-                "progressBar": true
-            }
-            @if (session()->has('success'))
-                toastr.success("{{ session()->get('success') }}");
-            @endif
-
-            @if (session()->has('error'))
-                toastr.error("{{ session()->get('error') }}");
-            @endif
-
-            @if (session()->has('info'))
-                toastr.info("{{ session()->get('info') }}");
-            @endif
-
-            @if (session()->has('warning'))
-                toastr.warning("{{ session()->get('warning') }}");
-            @endif
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

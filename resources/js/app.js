@@ -12,6 +12,7 @@ import PrimaryLink from './Shared/Links/PrimaryLink.vue'
 import SecondaryLink from './Shared/Links/SecondaryLink.vue'
 import DeleteLink from './Shared/Links/DeleteLink.vue'
 import LinkWithIcon from './Shared/Links/LinkWithIcon.vue'
+import FlashMessages from './Shared/FlashMessages.vue'
 
 InertiaProgress.init();
 createInertiaApp({
@@ -30,6 +31,7 @@ createInertiaApp({
       .component("SecondaryButton", SecondaryButton)
       .component("DeleteButton", DeleteButton)
       .component("ButtonWithIcon", ButtonWithIcon)
+      .component("FlashMessages", FlashMessages)
       
       .component("PrimaryLink", PrimaryLink)
       .component("SecondaryLink", SecondaryLink)
